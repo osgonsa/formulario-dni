@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Subida de DNI</title>
+</head>
+<body>
+  <h2>Formulario de verificación de identidad</h2>
+  <form action="https://osgonsa.app.n8n.cloud/webhook-test/58d2397d-9ef1-4b77-b0a3-c4483ad48141" method="post" enctype="multipart/form-data">
+    <label for="cara_a">Cara A del DNI:</label><br>
+    <input type="file" name="cara_a" accept="image/*" capture="environment" required><br><br>
+
+    <label for="cara_b">Cara B del DNI:</label><br>
+    <input type="file" name="cara_b" accept="image/*" capture="environment" required><br><br>
+
+    <button type="submit">Enviar</button>
+  </form>
+</body>
+</html>
