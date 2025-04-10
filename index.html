@@ -2,25 +2,25 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Formulario DNI - Eco</title>
+  <title>Formulario DNI</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 0 20px; }
-    h2 { color: #333; }
-    input[type="file"] { margin-bottom: 20px; }
-    button { background: #1976d2; color: white; padding: 10px 20px; border: none; border-radius: 5px; }
-    button:hover { background: #1565c0; }
+    body { font-family: Arial, sans-serif; padding: 30px; max-width: 600px; margin: auto; }
+    h2 { color: #2c3e50; }
+    label { display: block; margin-top: 20px; }
+    input[type="file"], button { margin-top: 10px; }
+    button { background-color: #1976d2; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+    button:hover { background-color: #135ba1; }
   </style>
 </head>
 <body>
-  <h2>Prueba de eco - Subida de DNI</h2>
-  <p>Este formulario solo comprobará si se reciben las imágenes correctamente.</p>
-  <form action="https://osgonsa.app.n8n.cloud/webhook/dni-echo" method="post" enctype="multipart/form-data">
-    <label for="cara_a">Cara A del DNI (anverso):</label><br>
-    <input type="file" name="cara_a" accept="image/*" required><br><br>
+  <h2>Subida de DNI</h2>
+  <form action="https://osgonsa.app.n8n.cloud/webhook/dni-http" method="post" enctype="multipart/form-data">
+    <label for="cara_a">Cara A del DNI:</label>
+    <input type="file" name="cara_a" accept="image/*" required>
 
-    <label for="cara_b">Cara B del DNI (reverso):</label><br>
-    <input type="file" name="cara_b" accept="image/*" required><br><br>
+    <label for="cara_b">Cara B del DNI:</label>
+    <input type="file" name="cara_b" accept="image/*" required>
 
     <button type="submit">Enviar</button>
   </form>
