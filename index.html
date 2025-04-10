@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Subida de DNI</title>
+  <title>Formulario DNI - Eco</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 0 20px; }
@@ -13,14 +13,14 @@
   </style>
 </head>
 <body>
-  <h2>Formulario de verificación de identidad</h2>
-  <p>Por favor, sube fotografías del anverso y reverso de tu DNI.</p>
-  <form action="https://osgonsa.app.n8n.cloud/webhook/dni-upload" method="post" enctype="multipart/form-data">
+  <h2>Prueba de eco - Subida de DNI</h2>
+  <p>Este formulario solo comprobará si se reciben las imágenes correctamente.</p>
+  <form action="https://osgonsa.app.n8n.cloud/webhook/dni-echo" method="post" enctype="multipart/form-data">
     <label for="cara_a">Cara A del DNI (anverso):</label><br>
-    <input type="file" name="cara_a" accept="image/*" capture="environment" required><br><br>
+    <input type="file" name="cara_a" accept="image/*" required><br><br>
 
     <label for="cara_b">Cara B del DNI (reverso):</label><br>
-    <input type="file" name="cara_b" accept="image/*" capture="environment" required><br><br>
+    <input type="file" name="cara_b" accept="image/*" required><br><br>
 
     <button type="submit">Enviar</button>
   </form>
