@@ -2,11 +2,11 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Formulario DNI</title>
+  <title>Formulario Subida DNI</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body { font-family: Arial, sans-serif; padding: 30px; max-width: 600px; margin: auto; }
-    h2 { color: #2c3e50; }
+    body { font-family: sans-serif; padding: 30px; max-width: 600px; margin: auto; }
+    h2 { color: #333; }
     label { display: block; margin-top: 20px; }
     input[type="file"], button { margin-top: 10px; }
     button { background-color: #1976d2; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
@@ -14,7 +14,7 @@
   </style>
 </head>
 <body>
-  <h2>Subida de DNI</h2>
+  <h2>Sube tu DNI</h2>
   <form action="https://osgonsa.app.n8n.cloud/webhook/dni-http" method="post" enctype="multipart/form-data">
     <label for="cara_a">Cara A del DNI:</label>
     <input type="file" name="cara_a" accept="image/*" required>
