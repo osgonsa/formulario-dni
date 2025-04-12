@@ -2,27 +2,18 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Formulario Subida DNI</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body { font-family: sans-serif; padding: 30px; max-width: 600px; margin: auto; }
-    h2 { color: #333; }
-    label { display: block; margin-top: 20px; }
-    input[type="file"], button { margin-top: 10px; }
-    button { background-color: #1976d2; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
-    button:hover { background-color: #135ba1; }
-  </style>
+  <title>Formulario de subida de DNI</title>
 </head>
 <body>
-  <h2>Sube tu DNI</h2>
-  <form action="https://osgonsa.app.n8n.cloud/webhook/dni-http" method="post" enctype="multipart/form-data">
-    <label for="cara_a">Cara A del DNI:</label>
-    <input type="file" name="cara_a" accept="image/*" required>
+  <h2>Sube las dos caras de tu DNI</h2>
+  <form action="https://osgonsa.app.n8n.cloud/webhook/dni-upload" method="POST" enctype="multipart/form-data">
+    <label for="cara_a">Fotografía cara A del DNI:</label><br>
+    <input type="file" name="cara_a" accept="image/*" capture="environment" required><br><br>
 
-    <label for="cara_b">Cara B del DNI:</label>
-    <input type="file" name="cara_b" accept="image/*" required>
+    <label for="cara_b">Fotografía cara B del DNI:</label><br>
+    <input type="file" name="cara_b" accept="image/*" capture="environment" required><br><br>
 
-    <button type="submit">Enviar</button>
+    <button type="submit">Enviar DNI</button>
   </form>
 </body>
 </html>
