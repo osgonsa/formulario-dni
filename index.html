@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Subida de DNI</title>
 </head>
 <body>
-  <h2>Subir DNI (cara A y B)</h2>
-  <form action="https://osgonsa.app.n8n.cloud/webhook/dni-upload" method="POST" enctype="multipart/form-data">
+  <h2>Sube ambas caras del DNI</h2>
+  <form
+    action="https://osgonsa.app.n8n.cloud/webhook/dni-upload"
+    method="POST"
+    enctype="multipart/form-data"
+  >
     <label for="cara_a">DNI - Cara A:</label>
-    <input type="file" name="cara_a" required><br><br>
+    <input type="file" name="cara_a" required /><br /><br />
 
     <label for="cara_b">DNI - Cara B:</label>
-    <input type="file" name="cara_b" required><br><br>
+    <input type="file" name="cara_b" required /><br /><br />
 
     <button type="submit">Enviar</button>
   </form>
