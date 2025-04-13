@@ -2,18 +2,18 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Formulario de subida de DNI</title>
+  <title>Subida de DNI</title>
 </head>
 <body>
-  <h2>Sube las dos caras de tu DNI</h2>
+  <h2>Subir DNI (cara A y B)</h2>
   <form action="https://osgonsa.app.n8n.cloud/webhook/dni-upload" method="POST" enctype="multipart/form-data">
-    <label for="cara_a">Fotografía cara A del DNI:</label><br>
-    <input type="file" name="cara_a" accept="image/*" capture="environment" required><br><br>
+    <label for="cara_a">DNI - Cara A:</label>
+    <input type="file" name="cara_a" required><br><br>
 
-    <label for="cara_b">Fotografía cara B del DNI:</label><br>
-    <input type="file" name="cara_b" accept="image/*" capture="environment" required><br><br>
+    <label for="cara_b">DNI - Cara B:</label>
+    <input type="file" name="cara_b" required><br><br>
 
-    <button type="submit">Enviar DNI</button>
+    <button type="submit">Enviar</button>
   </form>
 </body>
 </html>
