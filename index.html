@@ -3,33 +3,234 @@
 <head>
   <meta charset="UTF-8" />
   <title>Subida de DNI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0f766e" />
+  <style>
+    :root{
+      --bg:#0b1324;
+      --card:#121a2b;
+      --text:#eaf2ff;
+      --muted:#a8bbd9;
+      --accent:#22c55e;
+      --primary:#14b8a6;
+      --danger:#ef4444;
+      --border:#22304a;
+      --focus:#93c5fd;
+      --shadow:0 10px 30px rgba(0,0,0,.30);
+      --radius:16px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial;
+      background: radial-gradient(1200px 600px at 10% -10%, #133969 0%, transparent 60%),
+                  radial-gradient(800px 400px at 120% 10%, #0c5a52 0%, transparent 50%),
+                  var(--bg);
+      color:var(--text);
+      display:flex; align-items:center; justify-content:center; padding:24px;
+    }
+    .wrap{width:100%; max-width:720px}
+    .title{
+      margin:0 0 14px; font-size:clamp(1.3rem, 3.4vw, 2rem); font-weight:700; letter-spacing:.2px;
+    }
+    .subtitle{margin:0 0 18px; color:var(--muted); font-size:clamp(.95rem, 2.5vw, 1.05rem)}
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow);
+      padding:clamp(16px, 3.5vw, 28px);
+      backdrop-filter:saturate(120%) blur(6px);
+    }
+    form{width:100%}
+    .field{margin-bottom:16px}
+    label{
+      display:block; margin:0 0 8px; font-weight:600; font-size:1.05rem;
+    }
+    .hint{margin:6px 0 0; color:var(--muted); font-size:.95rem}
+    input[type="file"]{
+      width:100%; padding:14px; border-radius:12px; border:1px dashed var(--border);
+      background:rgba(255,255,255,.03); color:var(--text);
+      font-size:1rem;
+    }
+    input[type="file"]::file-selector-button{
+      margin-right:12px; border:0; padding:10px 14px; border-radius:10px;
+      background:var(--primary); color:#041217; font-weight:700; cursor:pointer;
+    }
+    .preview{
+      display:flex; gap:12px; align-items:center; margin-top:10px; min-height:64px;
+    }
+    .thumb{
+      width:72px; height:72px; border-radius:12px; border:1px solid var(--border);
+      object-fit:cover; background:#0e1626;
+    }
+    .filename{color:var(--muted); font-size:.95rem; word-break:break-all}
+    .actions{margin-top:20px; display:flex; gap:12px; align-items:center}
+    button[type="submit"]{
+      padding:14px 18px; border-radius:12px; border:1px solid #0e4742;
+      background:linear-gradient(180deg, var(--primary), #0ea5a4);
+      color:#041217; font-weight:800; font-size:1.05rem; cursor:pointer;
+      min-width:180px; transition:transform .05s ease;
+    }
+    button[type="submit"]:active{transform:translateY(1px)}
+    button[disabled]{opacity:.65; cursor:not-allowed; filter:grayscale(.1)}
+    .spinner{
+      display:inline-block; width:18px; height:18px; border:3px solid rgba(0,0,0,.15);
+      border-top-color:#052d2a; border-radius:50%; animation:spin 1s linear infinite; vertical-align:-3px; margin-right:8px;
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .status{margin-top:6px; font-size:.95rem}
+    .ok{color:var(--accent)}
+    .err{color:var(--danger)}
+    .note{
+      margin-top:18px; font-size:.92rem; color:var(--muted);
+      border-top:1px dashed var(--border); padding-top:12px;
+    }
+    .two-cols{
+      display:grid; grid-template-columns:1fr; gap:16px;
+    }
+    @media (min-width: 560px){
+      .two-cols{grid-template-columns:1fr 1fr}
+    }
+    /* Accesibilidad foco */
+    :focus-visible{outline:3px solid var(--focus); outline-offset:2px; border-radius:10px}
+  </style>
 </head>
 <body>
-  <h2>Subir DNI</h2>
-  <form
-    action="https://osgonsa.app.n8n.cloud/webhook/dni-upload"
-    method="post"
-    enctype="multipart/form-data"
-  >
-    <label for="cara_a">Cara A (anverso del DNI):</label><br />
-    <input 
-      type="file" 
-      name="cara_a" 
-      accept="image/*" 
-      capture="environment" 
-      required 
-    /><br /><br />
+  <main class="wrap">
+    <h1 class="title">Subida de DNI</h1>
+    <p class="subtitle">Haz una foto clara del <strong>anverso</strong> y el <strong>reverso</strong>. En móvil, se abrirá la cámara automáticamente.</p>
 
-    <label for="cara_b">Cara B (reverso del DNI):</label><br />
-    <input 
-      type="file" 
-      name="cara_b" 
-      accept="image/*" 
-      capture="environment" 
-      required 
-    /><br /><br />
+    <section class="card">
+      <form
+        id="dniForm"
+        action="https://osgonsa.app.n8n.cloud/webhook/dni-upload"
+        method="post"
+        enctype="multipart/form-data"
+        autocomplete="off"
+      >
+        <div class="two-cols">
+          <div class="field">
+            <label for="cara_a">Cara A — anverso</label>
+            <input
+              id="cara_a"
+              type="file"
+              name="cara_a"
+              accept="image/*"
+              capture="environment"
+              required
+            />
+            <div class="preview" id="preview_a">
+              <img class="thumb" id="thumb_a" alt="" aria-hidden="true" />
+              <div class="filename" id="file_a_txt">Ningún archivo seleccionado</div>
+            </div>
+            <p class="hint">Formato: JPG/PNG • Tamaño máx. <strong>10&nbsp;MB</strong></p>
+          </div>
 
-    <button type="submit">Enviar a n8n</button>
-  </form>
+          <div class="field">
+            <label for="cara_b">Cara B — reverso</label>
+            <input
+              id="cara_b"
+              type="file"
+              name="cara_b"
+              accept="image/*"
+              capture="environment"
+              required
+            />
+            <div class="preview" id="preview_b">
+              <img class="thumb" id="thumb_b" alt="" aria-hidden="true" />
+              <div class="filename" id="file_b_txt">Ningún archivo seleccionado</div>
+            </div>
+            <p class="hint">Formato: JPG/PNG • Tamaño máx. <strong>10&nbsp;MB</strong></p>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="submit" id="submitBtn">
+            Enviar a n8n
+          </button>
+          <div class="status" id="status" aria-live="polite"></div>
+        </div>
+
+        <p class="note">
+          Al enviar, aceptas el tratamiento de las imágenes con fines de verificación. No cierres la página hasta ver el mensaje de confirmación.
+        </p>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    // ===== Config =====
+    const MAX_MB = 10;
+    const ALLOWED = ['image/jpeg', 'image/png', 'image/webp', 'image/heic', 'image/heif'];
+
+    // ===== Helpers =====
+    function formatBytes(bytes){
+      const mb = bytes / (1024*1024);
+      return mb.toFixed(2) + ' MB';
+    }
+    function setPreview(inputEl, imgEl, textEl){
+      const f = inputEl.files && inputEl.files[0];
+      if(!f){ imgEl.removeAttribute('src'); textEl.textContent = 'Ningún archivo seleccionado'; return true; }
+
+      // Tipo y tamaño
+      const okType = ALLOWED.includes(f.type) || f.type.startsWith('image/');
+      const okSize = f.size <= MAX_MB * 1024 * 1024;
+
+      if(!okType){
+        textEl.textContent = 'Archivo no válido. Sube una imagen (JPG/PNG/HEIC/WEBP).';
+        textEl.className = 'filename err';
+        inputEl.value = '';
+        imgEl.removeAttribute('src');
+        return false;
+      }
+      if(!okSize){
+        textEl.textContent = `Archivo demasiado grande (${formatBytes(f.size)}). Máximo ${MAX_MB} MB.`;
+        textEl.className = 'filename err';
+        inputEl.value = '';
+        imgEl.removeAttribute('src');
+        return false;
+      }
+
+      const url = URL.createObjectURL(f);
+      imgEl.src = url;
+      imgEl.alt = 'Previsualización';
+      textEl.textContent = f.name + ' • ' + formatBytes(f.size);
+      textEl.className = 'filename';
+      return true;
+    }
+
+    // ===== Wire up =====
+    const aInput = document.getElementById('cara_a');
+    const bInput = document.getElementById('cara_b');
+    const aThumb = document.getElementById('thumb_a');
+    const bThumb = document.getElementById('thumb_b');
+    const aText = document.getElementById('file_a_txt');
+    const bText = document.getElementById('file_b_txt');
+    const form = document.getElementById('dniForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const statusEl = document.getElementById('status');
+
+    aInput.addEventListener('change', () => setPreview(aInput, aThumb, aText));
+    bInput.addEventListener('change', () => setPreview(bInput, bThumb, bText));
+
+    form.addEventListener('submit', (e) => {
+      // Validación rápida antes de enviar
+      const okA = setPreview(aInput, aThumb, aText);
+      const okB = setPreview(bInput, bThumb, bText);
+      if(!okA || !okB){
+        e.preventDefault();
+        statusEl.textContent = 'Corrige los archivos antes de enviar.';
+        statusEl.className = 'status err';
+        return;
+      }
+      // Estado de envío
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="spinner" aria-hidden="true"></span> Enviando…';
+      statusEl.textContent = 'Subiendo archivos…';
+      statusEl.className = 'status';
+    });
+
+    // Mejora UX en iOS: enfocar input abre opciones de cámara/galería
+    // (ya gestionado por capture="environment" en la mayoría de navegadores móviles).
+  </script>
 </body>
 </html>
