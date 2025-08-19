@@ -74,7 +74,7 @@
 <body>
   <main class="wrap">
     <h1 class="title">Formulario de verificación de identidad</h1>
-    <p class="subtitle">Sube el <strong>anverso</strong> y el <strong>reverso</strong> del DNI. En móvil, se abrirá la cámara.</p>
+    <p class="subtitle">Sube el <strong>anverso</strong> y el <strong>reverso</strong> del DNI. En móvil, se abrirá la cámara trasera.</p>
 
     <section class="card">
       <form
@@ -170,10 +170,8 @@
       const okA = setPreview(aInput, aThumb, aText, prevA);
       const okB = setPreview(bInput, bThumb, bText, prevB);
       if(!okA || !okB){ statusEl.textContent='Corrige los archivos antes de enviar.'; statusEl.className='status err'; return; }
-
       submitBtn.disabled = true; submitBtn.innerHTML = '<span class="spinner"></span> Enviando…';
       statusEl.textContent = 'Subiendo archivos…'; statusEl.className='status';
-
       try {
         const resp = await postForm(actionUrl, form);
         if (resp.ok){
@@ -191,4 +189,3 @@
   </script>
 </body>
 </html>
-
